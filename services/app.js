@@ -15,8 +15,9 @@ module.exports.signUp = async (options) => {
                     "name": body.name,
                     "category": body.category,
                     "userName": body.userName,
-                    "password": body.password
+                    "password": body.password,
                 };
+                body.category ? userObj.description = body.description : ""
                 var query = { userName: body.userName };
                 db.collection(body.category).find(query).toArray(function (err, result) {
                     if (err) throw err
@@ -63,7 +64,7 @@ module.exports.login = async (options) => {
                     if (result[0].password == body.password) {
                         resolve({
                             response: result[0],
-                            status: 400
+                            status: 200
                         })
                     } else {
                         reject({
@@ -82,4 +83,32 @@ module.exports.login = async (options) => {
         });
     })
 }
+
+
+module.exports.getAllServiceProvider = async (options) => {
+    return new Promise(async (resolve, reject) => {
+        options.mDbClient.connect(async (err, client) => {
+            console.log("Connected successfully to  mdb server");
+            try {
+                var db = client.db("appointmentSystem");
+                db.collection("service_provider").find({}).toArray(function (err, result) {
+                    if (err) throw err
+                    if (result) {
+                        resolve({
+                            response: result,
+                            status: 200
+                        })
+                    }
+                });
+            }
+            catch (e) {
+                reject({
+                    response: e,
+                    status: 400
+                })
+            }
+        });
+    })
+}
+
 

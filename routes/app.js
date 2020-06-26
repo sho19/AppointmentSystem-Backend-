@@ -27,4 +27,15 @@ router.post('/login', async function (req, res, next) {
     )
 });
 
+router.get('/getAllServiceProvider', async function (req, res, next) {
+  let options = {};
+  options.mDbClient = req.mDbClient;
+  options.body = req.body;
+  options.category = req.query.category,
+    app.getAllServiceProvider(options).then((result) => {
+      res.status(result.status).send(result.response)
+    }).catch((result) =>
+      res.status(result.status).send(result.response)
+    )
+});
 module.exports = router;
