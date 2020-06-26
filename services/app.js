@@ -28,7 +28,6 @@ module.exports.signUp = async (options) => {
                 });
             }
             catch{
-
             }
         });
     })
