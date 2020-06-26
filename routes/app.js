@@ -13,6 +13,7 @@ router.post('/signUp', async function (req, res, next) {
   }).catch((result) =>
     res.status(result.status).send(result.response)
   )
+
 });
 router.post('/login', async function (req, res, next) {
   let options = {};
