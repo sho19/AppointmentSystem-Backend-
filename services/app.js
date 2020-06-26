@@ -1,3 +1,5 @@
+const bodyParser = require("body-parser");
+
 const dbName = "appointmentSystem"
 
 
@@ -5,13 +7,15 @@ module.exports.signUp = async (options) => {
     return new Promise(async (resolve, reject) => {
         options.mDbClient.connect(async (err, client) => {
             console.log("Connected successfully to  mdb server");
+            var body = options.body
+            console.log("body", body)
             try {
                 var db = client.db("appointmentSystem");
                 var userObj = {
-                    "name": "hari reddy",
-                    "category": "buyer",
-                    "userName": "hari0117",
-                    "password": "haraharamahadev"
+                    "name": body.name,
+                    "category": body.category,
+                    "userName": body.userName,
+                    "password": body.password
                 };
                 db.collection("buyer").insertOne(userObj, function (err, res) {
                     if (err) throw err;
