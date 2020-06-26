@@ -166,7 +166,7 @@ module.exports.bookAppointments = async (options) => {
                     date: body.date,
                     time: body.time
                 };
-                let myquery = { userName: options.userName };
+                let myquery = { userName: body.email };
                 let newvalues = { $push: { myBookings: bokingObj } };
                 db.collection("customer").updateOne(myquery, newvalues, function (err, res) {
                     // if (err) throw err;
