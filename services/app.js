@@ -62,7 +62,7 @@ module.exports.login = async (options) => {
                     if (err) throw err
                     if (result[0].password == body.password) {
                         resolve({
-                            response: "login successfully ",
+                            response: result[0],
                             status: 400
                         })
                     } else {
