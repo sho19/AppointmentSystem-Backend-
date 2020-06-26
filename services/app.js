@@ -17,14 +17,25 @@ module.exports.signUp = async (options) => {
                     "userName": body.userName,
                     "password": body.password
                 };
-                db.collection(body.category).insertOne(userObj, function (err, res) {
-                    if (err) throw err;
-                    console.log(body.category, "created succesfully");
-                    resolve(result = {
-                        response: body.category, "created succesfully",
-                        status: 200
-                    })
-                    //  client.close();
+                var query = { userName: body.userName };
+                db.collection(body.category).find(query).toArray(function (err, result) {
+                    if (err) throw err
+                    if (result.length > 0) {
+                        reject({
+                            response: "choose another name",
+                            status: 400
+                        })
+                    } else {
+                        db.collection(body.category).insertOne(userObj, function (err, res) {
+                            if (err) throw err;
+                            console.log(body.category, "created succesfully");
+                            resolve(result = {
+                                response: body.category + "created succesfully",
+                                status: 200
+                            })
+                            //   client.close();
+                        });
+                    }
                 });
             }
             catch (e) {
