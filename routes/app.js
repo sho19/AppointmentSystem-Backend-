@@ -12,7 +12,6 @@ router.post('/signUp', async function (req, res, next) {
     res.status(result.status).send(result.response)
   }).catch((result) =>
     res.status(result.status).send(result.response)
-
   )
 });
 router.post('/login', async function (req, res, next) {
