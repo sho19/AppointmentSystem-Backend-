@@ -24,10 +24,12 @@ module.exports.signUp = async (options) => {
                         response: "1 document inserted",
                         status: 200
                     })
-                    client.close();
                 });
             }
             catch{
+            } finally {
+                client.close();
+
             }
         });
     })
