@@ -38,4 +38,17 @@ router.get('/getAllServiceProvider', async function (req, res, next) {
       res.status(result.status).send(result.response)
     )
 });
+
+router.post('/setAvailableTime/:userName', async function (req, res, next) {
+  let options = {};
+  options.mDbClient = req.mDbClient;
+  options.body = req.body;
+  options.userName = req.params.userName,
+    app.setAvailableTime(options).then((result) => {
+      res.status(result.status).send(result.response)
+    }).catch((result) =>
+      res.status(result.status).send(result.response)
+    )
+});
+
 module.exports = router;

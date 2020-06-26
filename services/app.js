@@ -112,3 +112,41 @@ module.exports.getAllServiceProvider = async (options) => {
 }
 
 
+module.exports.setAvailableTime = async (options) => {
+    return new Promise(async (resolve, reject) => {
+        options.mDbClient.connect(async (err, client) => {
+            console.log("Connected successfully to  mdb server");
+            var body = options.body
+            console.log("body", body, options.userName)
+            try {
+                var db = client.db("appointmentSystem");
+                var userObj = {
+                    "from": body.from,
+                    "to": body.to,
+                };
+                var myquery = { userName: options.userName };
+                var newvalues = { $set: { "timeSlot": userObj } };
+                db.collection("service_provider").updateOne(myquery, newvalues, function (err, res) {
+                    if (err) throw err;
+                    if (res.result.n > 0) {
+                        resolve({
+                            response: "updtaed sucessfully",
+                            status: 200
+                        })
+                    } else {
+                        reject({
+                            response: "failed updation",
+                            status: 400
+                        })
+                    }
+                });
+            }
+            catch (e) {
+                reject({
+                    response: e,
+                    status: 400
+                })
+            }
+        });
+    })
+}
