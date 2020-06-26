@@ -16,6 +16,7 @@ router.post('/signUp', async function (req, res, next) {
   )
 });
 router.post('/login', async function (req, res, next) {
+  let options = {};
   options.mDbClient = req.mDbClient;
   options.body = req.body;
   options.category = req.query.category,
