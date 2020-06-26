@@ -15,20 +15,23 @@ module.exports.signUp = async (options) => {
                     "name": body.name,
                     "category": body.category,
                     "userName": body.userName,
-                    "password": body.pas
+                    "password": body.password
                 };
-                db.collection("buyer").insertOne(userObj, function (err, res) {
+                db.collection(body.category).insertOne(userObj, function (err, res) {
                     if (err) throw err;
-                    console.log("1 document inserted");
+                    console.log(body.category, "created succesfully");
                     resolve(result = {
-                        response: "1 document inserted",
+                        response: body.category, "created succesfully",
                         status: 200
                     })
                     //  client.close();
                 });
             }
-            catch{
-
+            catch (e) {
+                reject({
+                    response: e,
+                    status: 400
+                })
             }
         });
     })
