@@ -15,7 +15,7 @@ module.exports.signUp = async (options) => {
                     "name": body.name,
                     "category": body.category,
                     "userName": body.userName,
-                    "password": body.password
+                    "password": body.pas
                 };
                 db.collection("buyer").insertOne(userObj, function (err, res) {
                     if (err) throw err;
@@ -24,11 +24,10 @@ module.exports.signUp = async (options) => {
                         response: "1 document inserted",
                         status: 200
                     })
+                    //  client.close();
                 });
             }
             catch{
-            } finally {
-                client.close();
 
             }
         });
