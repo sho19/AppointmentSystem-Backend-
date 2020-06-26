@@ -208,11 +208,11 @@ module.exports.bookAppointments = async (options) => {
 module.exports.rejectAppointment = async (options) => {
     return new Promise(async (resolve, reject) => {
         options.mDbClient.connect(async (err, client) => {
-            console.log("customerName", options.customerName, options.username)
+            console.log("customerName", options.customerName, options.userName)
             console.log("Connected successfully to  mdb server");
             try {
                 var db = client.db("appointmentSystem");
-                db.collection("service_provider").updateOne({ options: options.username }, { $pull: { appointments: { customer: options.customerName } } }, function (err, res) {
+                db.collection("service_provider").updateOne({ options: options.userName }, { $pull: { appointments: { customer: options.customerName } } }, function (err, res) {
                     if (err) throw err
                     if (res.result.nModified > 0) {
                         resolve({
