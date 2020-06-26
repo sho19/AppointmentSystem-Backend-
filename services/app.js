@@ -130,12 +130,12 @@ module.exports.setAvailableTime = async (options) => {
                     if (err) throw err;
                     if (res.result.n > 0) {
                         resolve({
-                            response: "updtaed sucessfully",
+                            response: "updated sucessfully",
                             status: 200
                         })
                     } else {
                         reject({
-                            response: "failed updation",
+                            response: "Failed updation",
                             status: 400
                         })
                     }
@@ -150,3 +150,59 @@ module.exports.setAvailableTime = async (options) => {
         });
     })
 }
+
+
+
+module.exports.bookAppointments = async (options) => {
+    return new Promise(async (resolve, reject) => {
+        options.mDbClient.connect(async (err, client) => {
+            console.log("Connected successfully to  mdb server");
+            var body = options.body
+            console.log("body", body, options.userName, options.serProvider)
+            try {
+                var db = client.db("appointmentSystem");
+                var bokingObj = {
+                    email: body.email,
+                    date: body.date,
+                    time: body.time
+                };
+                let myquery = { userName: options.userName };
+                let newvalues = { $push: { myBookings: bokingObj } };
+                db.collection("customer").updateOne(myquery, newvalues, function (err, res) {
+                    // if (err) throw err;
+                    if (res.result.n > 0) {
+                        let myquery = { userName: options.serProvider };
+                        let newvalues = { $push: { appointments: bokingObj } };
+                        db.collection("service_provider").updateOne(myquery, newvalues, function (err, res) {
+                            if (res.result.n > 0) {
+                                resolve({
+                                    response: "updated sucessfully",
+                                    status: 200
+                                })
+                            } else {
+                                reject({
+                                    response: "Failed updation",
+                                    status: 400
+                                })
+                            }
+                        })
+                    } else {
+                        reject({
+                            response: "Failed updation",
+                            status: 400
+                        })
+                    }
+                });
+            }
+            catch (e) {
+                reject({
+                    response: e,
+                    status: 400
+                })
+            }
+        });
+    })
+}
+
+
+
