@@ -64,7 +64,7 @@ router.post('/bookAppointments/:userName/:serProvider', async function (req, res
   )
 });
 
-router.delete('/rejectAppointment/:customerName/:username', async function (req, res, next) {
+router.delete('/rejectAppointment/:customerName/:userName', async function (req, res, next) {
   let options = {};
   options.mDbClient = req.mDbClient;
   options.userName = req.params.userName;
