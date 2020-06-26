@@ -8,7 +8,7 @@ const url = process.env.mongodburl || `mongodb+srv://sho19:951753654@appointment
 const mDbClient = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-app.listen(PORT, () => console.log("listening"));
+app.listen(PORT, () => console.log("listening", PORT));
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

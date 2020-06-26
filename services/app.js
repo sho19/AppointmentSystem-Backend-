@@ -49,45 +49,37 @@ module.exports.signUp = async (options) => {
 }
 
 
-// function initSignUp() {
-//     return new Promise(async function (resolve, reject) {
-
-//         try {
-//             const collection = db.collection('documents');
-//             // Insert some documents
-//             collection.insertMany([
-//                 { a: 1 }, { a: 2 }, { a: 3 }
-//             ], function (err, result) {
-//                 assert.equal(err, null);
-//                 assert.equal(3, result.result.n);
-//                 assert.equal(3, result.ops.length);
-//                 console.log("Inserted 3 documents into the collection");
-//                 callback(result);
-//             });
-//         }
-//         catch{
-
-//         }
-
-        // try {
-        //     // let collection
-
-
-
-
-        //     let result = {
-        //         response: mbClient,
-        //         status: 200
-        //     }
-        //     resolve(result);
-        // }
-        // catch (e) {
-        //     reject({
-        //         response: e,
-        //         status: 400
-        //     })
-//         // }
-//     })
-// }
-
+module.exports.login = async (options) => {
+    return new Promise(async (resolve, reject) => {
+        options.mDbClient.connect(async (err, client) => {
+            console.log("Connected successfully to  mdb server");
+            var body = options.body
+            console.log("body", body)
+            try {
+                var db = client.db("appointmentSystem");
+                var query = { userName: body.userName };
+                db.collection(options.category).find(query).toArray(function (err, result) {
+                    if (err) throw err
+                    if (result[0].password == body.password) {
+                        resolve({
+                            response: "login successfully ",
+                            status: 400
+                        })
+                    } else {
+                        reject({
+                            response: "unauthorised",
+                            status: 400
+                        })
+                    }
+                });
+            }
+            catch (e) {
+                reject({
+                    response: e,
+                    status: 400
+                })
+            }
+        });
+    })
+}
 
