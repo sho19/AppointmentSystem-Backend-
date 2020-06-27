@@ -61,6 +61,7 @@ module.exports.login = async (options) => {
                 var query = { userName: body.userName };
                 db.collection(options.category).find(query).toArray(function (err, result) {
                     if (err) throw err
+                    if(result.length>0){
                     if (result[0].password == body.password) {
                         resolve({
                             response: result[0],
@@ -68,10 +69,16 @@ module.exports.login = async (options) => {
                         })
                     } else {
                         reject({
-                            response: "unauthorised",
+                            response: "invalid password",
                             status: 400
                         })
                     }
+                }else{
+                    reject({
+                        response: "user does not exist",
+                        status: 400
+                    })
+                }
                 });
             }
             catch (e) {
