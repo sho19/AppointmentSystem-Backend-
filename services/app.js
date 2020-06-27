@@ -2,6 +2,7 @@ const bodyParser = require("body-parser");
 
 const dbName = "appointmentSystem"
 
+
 module.exports.signUp = async (options) => {
     return new Promise(async (resolve, reject) => {
         options.mDbClient.connect(async (err, client) => {
