@@ -102,7 +102,6 @@ module.exports.login = async (options) => {
     })
 }
 
-
 module.exports.getAllServiceProvider = async (options) => {
     return new Promise(async (resolve, reject) => {
         options.mDbClient.connect(async (err, client) => {
