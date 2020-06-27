@@ -61,19 +61,21 @@ module.exports.login = async (options) => {
                 var query = { userName: body.userName };
                 db.collection(options.category).find(query).toArray(function (err, result) {
                     if (err) throw err
+                    let responseObj={
+                        result:"success",
+                        status:200,
+                        data:{}
+                    }
                     if(result.length>0){
                     if (result[0].password == body.password) {
-                        let responseObj={
-                            result:"success",
-                            status:200,
-                            data:result[0]
-                        }
+                        responseObj.data=result[0]
                         resolve({
                             response: responseObj,
                             status: 200
                         })
                     } else {
                         responseObj.result="invalid password";
+                        responseObj.data=result[0]
                         responseObj.status=400;
                         resolve({
                             response: responseObj,
