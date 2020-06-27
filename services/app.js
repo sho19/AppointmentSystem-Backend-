@@ -75,7 +75,7 @@ module.exports.login = async (options) => {
                         })
                     } else {
                         responseObj.result="invalid password";
-                        responseObj.data=result[0]
+                        responseObj.data={}
                         responseObj.status=400;
                         resolve({
                             response: responseObj,
