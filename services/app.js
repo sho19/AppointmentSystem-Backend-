@@ -63,20 +63,29 @@ module.exports.login = async (options) => {
                     if (err) throw err
                     if(result.length>0){
                     if (result[0].password == body.password) {
+                        let responseObj={
+                            result:"success",
+                            status:200,
+                            data:result[0]
+                        }
                         resolve({
-                            response: result[0],
+                            response: responseObj,
                             status: 200
                         })
                     } else {
-                        reject({
-                            response: "invalid password",
-                            status: 400
+                        responseObj.result="invalid password";
+                        responseObj.status=400;
+                        resolve({
+                            response: responseObj,
+                            status: 200
                         })
                     }
                 }else{
-                    reject({
-                        response: "user does not exist",
-                        status: 400
+                    responseObj.result="user does not exist";
+                    responseObj.status=400;
+                    resolve({
+                        response: responseObj,
+                        status: 200
                     })
                 }
                 });
