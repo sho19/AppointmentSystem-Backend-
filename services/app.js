@@ -91,7 +91,7 @@ module.exports.getAllServiceProvider = async (options) => {
             console.log("Connected successfully to  mdb server");
             try {
                 var db = client.db("appointmentSystem");
-                db.collection("service_provider").find({}).toArray(function (err, result) {
+                db.collection("service_provider").find({}, { projection: { password: 0, } }).toArray(function (err, result) {
                     if (err) throw err
                     if (result) {
                         resolve({
