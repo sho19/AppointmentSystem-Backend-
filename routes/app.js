@@ -69,6 +69,8 @@ router.delete('/rejectAppointment/:customerName/:userName', async function (req,
   options.mDbClient = req.mDbClient;
   options.userName = req.params.userName;
   options.customerName = req.params.customerName,
+  options.selectedTime = req.body.selectedTime,
+  options.date = req.body.date
 
     app.rejectAppointment(options).then((result) => {
       res.status(result.status).send(result.response)
