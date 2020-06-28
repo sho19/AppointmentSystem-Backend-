@@ -231,7 +231,7 @@ module.exports.rejectAppointment = async (options) => {
                     if (err) throw err
                     if (res.result.nModified > 0) {
                         resolve({
-                            response: "rejected successfully",
+                            response: "deleted successfully",
                             status: 200
                         })
                     } else {
