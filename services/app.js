@@ -225,15 +225,13 @@ module.exports.bookAppointments = async (options) => {
 module.exports.rejectAppointment = async (options) => {
     return new Promise(async (resolve, reject) => {
         options.mDbClient.connect(async (err, client) => {
-            console.log("customerName", options.customerName, options.userName)
-            console.log("Connected successfully to  mdb server");
             try {
                 var db = client.db("appointmentSystem");
-                db.collection("service_provider").updateOne({ userName: options.userName }, { $pull: { appointments: { customer: options.customerName,time:options.selectedTime,date:options.date } } }, function (err, res) {
+                db.collection("service_provider").updateOne({ userName: options.userName }, { $pull: { appointments: { customer: options.customeruserName,time:options.selectedTime,date:options.date } } }, function (err, res) {
                     if (err) throw err
                     if (res.result.nModified > 0) {
                         resolve({
-                            response: "rejected successfull",
+                            response: "rejected successfully",
                             status: 200
                         })
                     } else {

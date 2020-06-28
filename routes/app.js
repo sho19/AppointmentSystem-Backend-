@@ -64,11 +64,11 @@ router.post('/bookAppointments/:userName/:serProvider', async function (req, res
   )
 });
 
-router.delete('/rejectAppointment/:customerName/:userName', async function (req, res, next) {
+router.delete('/rejectAppointment/:customeruserName/:userName', async function (req, res, next) {
   let options = {};
   options.mDbClient = req.mDbClient;
   options.userName = req.params.userName;
-  options.customerName = req.params.customerName,
+  options.customeruserName = req.params.customeruserName,
   options.selectedTime = req.body.selectedTime,
   options.date = req.body.date
 
