@@ -255,4 +255,30 @@ module.exports.rejectAppointment = async (options) => {
 }
 
 
+module.exports.getAppointments = async (options) => {
+    return new Promise(async (resolve, reject) => {
+        options.mDbClient.connect(async (err, client) => {
+            console.log("Connected successfully to  mdb server");
+            try {
+                var db = client.db("appointmentSystem");
+                db.collection(options.category).find({ userName: options.userName }, { projection: { _id: 0, name: 0, password: 0, timeSlot: 0, category: 0 } }).toArray(function (err, result) {
+                    if (err) throw err
+                    if (result) {
+                        resolve({
+                            response: result,
+                            status: 200
+                        })
+                    }
+                });
+            }
+            catch (e) {
+                reject({
+                    response: e,
+                    status: 400
+                })
+            }
+        });
+    })
+}
+
 

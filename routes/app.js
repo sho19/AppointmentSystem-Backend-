@@ -77,5 +77,15 @@ router.delete('/rejectAppointment/:customerName/:userName', async function (req,
     )
 });
 
-
+router.get('/appointments/:userName', async function (req, res, next) {
+  let options = {};
+  options.mDbClient = req.mDbClient;
+  options.userName = req.params.userName;
+  options.category = req.query.category,
+    app.getAppointments(options).then((result) => {
+      res.status(result.status).send(result.response)
+    }).catch((result) =>
+      res.status(result.status).send(result.response)
+    )
+});
 module.exports = router;
