@@ -181,7 +181,8 @@ module.exports.bookAppointments = async (options) => {
                 var bokingObj = {
                     email: body.email,
                     date: body.date,
-                    time: body.time
+                    time: body.time,
+                    clientName: options.serProvider
                 };
                 let myquery = { userName: body.email };
                 let newvalues = { $push: { myBookings: bokingObj } };
