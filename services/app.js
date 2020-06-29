@@ -184,6 +184,7 @@ module.exports.bookAppointments = async (options) => {
                     time: body.time,
                     clientName: options.serProvider
                 };
+                console.log(bokingObj,"check here")
                 let myquery = { userName: body.email };
                 let newvalues = { $push: { myBookings: bokingObj } };
                 db.collection("customer").updateOne(myquery, newvalues, function (err, res) {
